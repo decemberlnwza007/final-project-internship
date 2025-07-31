@@ -18,7 +18,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">ชื่อจริง</label>
-                        <input v-model="name" type="text" placeholder="กรอกชื่อ" class="input-style" />
+                        <input v-model="firstname" type="text" placeholder="กรอกชื่อ" class="input-style" />
                     </div>
 
                     <div>
@@ -67,7 +67,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 mt-6">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">ชื่อจริง</label>
-                        <input v-model="name" type="text" placeholder="กรอกชื่อ" class="input-style" />
+                        <input v-model="firstname" type="text" placeholder="กรอกชื่อ" class="input-style" />
                     </div>
 
                     <div>
@@ -467,6 +467,7 @@ import { ref, onMounted, watch, reactive } from 'vue';
 import { PlusIcon, TrashIcon } from 'lucide-vue-next';
 
 const name = ref('');
+const firstname = ref('');
 const lastname = ref('');
 const studentId = ref('');
 
@@ -542,6 +543,11 @@ const languages = reactive([
 // watch(name, (newVal) => {
 //     localStorage.setItem('name', newVal);
 // });
+
+onMounted(() => {
+    firstname.value = localStorage.getItem('firstname') || '';
+    lastname.value = localStorage.getItem('lastname') || '';
+})
 
 </script>
 

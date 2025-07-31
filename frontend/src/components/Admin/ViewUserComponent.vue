@@ -6,7 +6,7 @@
                     <User2 class="w-6 h-6 text-white" />
                 </div>
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-800">ข้อมูลผู้ใช้ทั้งหมด</h1>
+                    <h1 class="text-3xl font-bold text-red-700">ข้อมูลผู้ใช้ทั้งหมด</h1>
                 </div>
             </div>
         </div>
@@ -16,15 +16,15 @@
                 <table class="min-w-full">
                     <thead class="bg-gradient-to-r from-red-600 to-red-700 text-white">
                         <tr>
-                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">ID</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">ชื่อผู้ใช้
+                            <th class="px-6 py-4 text-left text-lg font-semibold uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-4 text-left text-lg font-semibold uppercase tracking-wider">ชื่อผู้ใช้
                             </th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">ชื่อ</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">นามสกุล</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">สถานะ</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">การใช้งาน
+                            <th class="px-6 py-4 text-left text-lg font-semibold uppercase tracking-wider">ชื่อ</th>
+                            <th class="px-6 py-4 text-left text-lg font-semibold uppercase tracking-wider">นามสกุล</th>
+                            <th class="px-6 py-4 text-left text-lg font-semibold uppercase tracking-wider">สถานะ</th>
+                            <th class="px-6 py-4 text-left text-lg font-semibold uppercase tracking-wider">การใช้งาน
                             </th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">จัดการ</th>
+                            <th class="px-6 py-4 text-left text-lg font-semibold uppercase tracking-wider">จัดการ</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">

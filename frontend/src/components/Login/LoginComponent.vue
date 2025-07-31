@@ -26,14 +26,9 @@
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <UserIcon class="h-5 w-5 text-slate-400" />
               </div>
-              <input
-                v-model="formData.username"
-                type="text"
-                name="username"
+              <input v-model="formData.username" type="text" name="username"
                 class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 focus:outline-none"
-                placeholder="กรอกรหัสผู้ใช้งาน"
-                required
-              />
+                placeholder="กรอกรหัสผู้ใช้งาน" required />
             </div>
           </div>
 
@@ -45,19 +40,11 @@
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <LockIcon class="h-5 w-5 text-slate-400" />
               </div>
-              <input
-                v-model="formData.password"
-                :type="showPassword ? 'text' : 'password'"
-                name="password"
+              <input v-model="formData.password" :type="showPassword ? 'text' : 'password'" name="password"
                 class="w-full pl-10 pr-12 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 focus:outline-none"
-                placeholder="กรอกรหัสผ่าน"
-                required
-              />
-              <button
-                type="button"
-                @click="togglePassword"
-                class="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-slate-600 transition-colors duration-200"
-              >
+                placeholder="กรอกรหัสผ่าน" required />
+              <button type="button" @click="togglePassword"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-slate-600 transition-colors duration-200">
                 <EyeIcon v-if="!showPassword" class="h-5 w-5 text-slate-400" />
                 <EyeOffIcon v-else class="h-5 w-5 text-slate-400" />
               </button>
@@ -66,12 +53,8 @@
 
           <div class="flex items-center justify-between">
             <div class="flex items-center">
-              <input
-                v-model="rememberMe"
-                id="remember-me"
-                type="checkbox"
-                class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded"
-              />
+              <input v-model="rememberMe" id="remember-me" type="checkbox"
+                class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded" />
               <label for="remember-me" class="ml-2 block text-sm text-slate-700">
                 จดจำการเข้าสู่ระบบ
               </label>
@@ -81,18 +64,15 @@
             </a>
           </div>
 
-          <button
-            type="submit"
-            :disabled="isLoading"
-            class="w-full bg-red-600 text-white py-3 px-4 cursor-pointer rounded-xl hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none"
-          >
+          <button type="submit" :disabled="isLoading"
+            class="w-full bg-red-600 text-white py-3 px-4 cursor-pointer rounded-xl hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none">
             <LogInIcon v-if="!isLoading" class="h-5 w-5" />
             <div v-else class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
             <span>{{ isLoading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ' }}</span>
           </button>
         </form>
 
-        <div class="mt-6 mb-4">
+        <!-- <div class="mt-6 mb-4">
           <div class="relative">
             <div class="absolute inset-0 flex items-center">
               <div class="w-full border-t border-slate-300"></div>
@@ -112,7 +92,7 @@
             <BuildingIcon class="h-4 w-4 mr-2" />
             บุคลากร
           </button>
-        </div>
+        </div> -->
       </div>
 
       <div class="text-center mt-6">
@@ -145,7 +125,7 @@ import axios from 'axios';
 
 const url = import.meta.env.VITE_API_URL;
 
-const { showSuccess, showError } = useToastService();
+const { showSuccess, showError, showInfo } = useToastService();
 
 const showSuccessToast = (message) => {
   showSuccess(message);
@@ -153,6 +133,10 @@ const showSuccessToast = (message) => {
 
 const showErrorToast = (message) => {
   showError(message);
+}
+
+const showInfoToast = (message) => {
+  showInfo(message);
 }
 
 const router = useRouter();
@@ -183,14 +167,19 @@ const handleLogin = async () => {
       localStorage.setItem('token', token);
       localStorage.setItem('firstname', response.data.user.firstname);
       localStorage.setItem('lastname', response.data.user.lastname);
-      
-      if(response.data.user.status === 'admin') {
-        router.push('/homeadmin');
-      }else if(response.data.user.status === 'student') {
-        router.push('/home');
+
+      if (response.data.user.isactive === '0') {
+        showInfo('กรุณาติดต่อแอดมิน')
+      } else if (response.data.user.isactive === '1') {
+        if (response.data.user.status === 'admin') {
+          showSuccessToast('เข้าสู่ระบบสำเร็จ')
+          router.push('/homeadmin');
+        } else if (response.data.user.status === 'student') {
+          showSuccessToast('เข้าสู่ระบบสำเร็จ')
+          router.push('/home');
+        }
       }
-      showSuccessToast('เข้าสู่ระบบสำเร็จ')
-    }else {
+    } else {
       showErrorToast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
     }
   } catch (error) {

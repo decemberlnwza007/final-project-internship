@@ -4,9 +4,12 @@
 
         <div class="flex-1 relative overflow-hidden">
 
-            <div class="relative bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-red-200/50 p-12 ml-6 mt-6 mb-10 mr-6 min-h-[calc(100vh-5rem)] overflow-hidden">
+            <div
+                class="relative bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-red-200/50 p-12 ml-6 mt-6 mb-10 mr-6 min-h-[calc(100vh-5rem)] overflow-hidden">
                 <div class="absolute inset-0 opacity-5">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-600 to-red-800 pattern-dots"></div>
+                    <div
+                        class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-600 to-red-800 pattern-dots">
+                    </div>
                 </div>
 
                 <div class="relative flex justify-center mb-8">
@@ -14,15 +17,18 @@
                 </div>
 
                 <div class="relative text-center space-y-8">
-                    <h1 class="text-7xl font-bold bg-gradient-to-r from--700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow-sm">
-                        ยินดีต้อนรับ
+                    <h1
+                        class="text-7xl font-bold bg-gradient-to-r from--700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow-sm">
+                        ยินดีต้อนรับ คุณ {{ firstname }}
                     </h1>
 
                     <div class="relative">
                         <p class="text-2xl text-red-700 max-w-3xl mx-auto leading-relaxed font-medium">
                             ระบบปฏิบัติงานระบบทวิภาคี สำหรับนักศึกษาปริญญาตรี
                         </p>
-                        <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-red-400 to-transparent"></div>
+                        <div
+                            class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-red-400 to-transparent">
+                        </div>
                     </div>
                 </div>
 
@@ -32,18 +38,24 @@
                         <div class="w-14 h-2.5 bg-gradient-to-r from-red-600 to-red-700 rounded-full shadow-md"></div>
                         <div class="w-10 h-2.5 bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-md"></div>
                     </div>
-                </div>        
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-    import SidebarComponent from '../components/Sidebar/SidebarComponent.vue';
+import { onMounted, ref } from 'vue';
+import SidebarComponent from '../components/Sidebar/SidebarComponent.vue';
+
+const firstname = ref('');
+
+onMounted(() => {
+    firstname.value = localStorage.getItem('firstname') || '';
+})
 </script>
 
 <style scoped>
-
 .home {
     overflow: hidden;
 }

@@ -206,9 +206,9 @@ const menuItems = [
   {
     label: 'ตั้งค่า',
     icon: SettingsIcon,
-    color: 'text-slate-600',
-    bg: 'bg-slate-50',
-    href: '/settings'
+    color: 'text-red-600',
+    bg: 'bg-red-50',
+    href: '/setting'
   }
 ];
 

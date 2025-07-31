@@ -18,7 +18,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">ชื่อจริง</label>
-                        <input v-model="name" type="text" placeholder="กรอกชื่อ" class="input-style" />
+                        <input v-model="firstname" type="text" placeholder="กรอกชื่อ" class="input-style" />
                     </div>
 
                     <div>
@@ -209,7 +209,17 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+    import { ref, onMounted } from 'vue';
+
+    const firstname = ref('');
+    const lastname = ref('');
+
+    onMounted(() => {
+        firstname.value = localStorage.getItem('firstname');
+        lastname.value = localStorage.getItem('lastname');
+    })
+</script>
 
 <style scoped>
 .scroll-style::-webkit-scrollbar {
