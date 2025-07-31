@@ -181,7 +181,14 @@ const handleLogin = async () => {
     if (response.data.success) {
       const token = response.data.token;
       localStorage.setItem('token', token);
-      router.push('/home');
+      localStorage.setItem('firstname', response.data.user.firstname);
+      localStorage.setItem('lastname', response.data.user.lastname);
+      
+      if(response.data.user.status === 'admin') {
+        router.push('/homeadmin');
+      }else if(response.data.user.status === 'student') {
+        router.push('/home');
+      }
       showSuccessToast('เข้าสู่ระบบสำเร็จ')
     }else {
       showErrorToast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')

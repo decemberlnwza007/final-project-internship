@@ -37,11 +37,11 @@ const getUserById = async (id) => {
     return result.rows[0];
 };
 
-const createUser = async (username, password, firstname, lastname, status, isactive) => {
+const createUser = async (username, password, firstname, lastname, status, isactive, student_id) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await db.query(
-        'INSERT INTO users (username, password, firstname, lastname, status, isactive) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-        [username, hashedPassword, firstname, lastname, status, isactive]
+        'INSERT INTO users (username, password, firstname, lastname, status, isactive, student_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+        [username, hashedPassword, firstname, lastname, status, isactive, student_id]
     );
     return result.rows[0];
 };

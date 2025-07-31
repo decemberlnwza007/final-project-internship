@@ -106,7 +106,7 @@
           </div>
           <div class="flex-1 min-w-0">
             <p class="text-sm font-bold text-slate-800">
-              นายพงศกร ทองรักษ์
+              {{ firstname }} {{ lastname }}
             </p>
             <p class="text-xs text-slate-600 mt-1 font-medium">
               นักศึกษา
@@ -129,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch,onMounted } from 'vue';
 import {
   Home as HomeIcon,
   FileText as FileTextIcon,
@@ -149,6 +149,9 @@ import {
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
+
+const firstname = ref('');
+const lastname = ref('');
 
 const Logout = () => {
   router.push('/');
@@ -238,4 +241,9 @@ watch(
   },
   { immediate: true }
 )
+
+onMounted(() => {
+  firstname.value = localStorage.getItem('firstname') || '';
+  lastname.value = localStorage.getItem('lastname') || '';
+})
 </script>

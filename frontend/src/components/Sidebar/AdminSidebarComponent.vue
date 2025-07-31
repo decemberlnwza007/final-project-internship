@@ -102,14 +102,14 @@
       <div class="px-4 py-4 border-t border-slate-200/50 bg-slate-50 shrink-0">
         <div class="flex items-center space-x-4 px-4 py-4 rounded-2xl bg-white border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
           <div class="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center shadow-md shrink-0">
-            <span class="text-white font-bold text-sm">นศ</span>
+            <span class="text-white font-bold text-sm">AD</span>
           </div>
           <div class="flex-1 min-w-0">
             <p class="text-sm font-bold text-slate-800">
-              นายพงศกร ทองรักษ์
+              {{ firstname }} {{ lastname }}
             </p>
             <p class="text-xs text-slate-600 mt-1 font-medium">
-              นักศึกษา
+              แอดมิน
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import {
   Home as HomeIcon,
   FileText as FileTextIcon,
@@ -151,6 +151,9 @@ import {
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
+
+const firstname = ref('');
+const lastname = ref('');
 
 const Logout = () => {
   router.push('/');
@@ -233,4 +236,9 @@ watch(
   },
   { immediate: true }
 )
+
+onMounted(() => {
+  firstname.value = localStorage.getItem('firstname');
+  lastname.value = localStorage.getItem('lastname');
+})
 </script>

@@ -88,23 +88,11 @@
                             ข้อมูลนักเรียน
                         </h3>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">รหัสนักศึกษา</label>
                                 <input v-model="formData.studentId" type="text" class="input-style"
                                     placeholder="กรอกรหัสนักศึกษา">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">ชื่อนักศึกษา</label>
-                                <input v-model="formData.studentName" type="text" class="input-style"
-                                    placeholder="กรอกชื่อนักศึกษา">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">นามสกุลนักศึกษา</label>
-                                <input v-model="formData.studentLastName" type="text" class="input-style"
-                                    placeholder="กรอกนามสกุลนักศึกษา">
                             </div>
                         </div>
                     </div>
@@ -197,7 +185,8 @@ const handleAddUser = async () => {
             firstname: formData.firstName,
             lastname: formData.lastName,
             status: formData.role,
-            isactive: 1
+            isactive: 1,
+            student_id: formData.studentId
         })
 
         showSuccessToast('เพิ่มผู้ใช้สำเร็จ')

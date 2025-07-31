@@ -32,8 +32,8 @@ exports.login = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const { username, password, firstname, lastname, status, isactive } = req.body;
-    const user = await User.createUser(username, password, firstname, lastname, status, isactive);
+    const { username, password, firstname, lastname, status, isactive, student_id } = req.body;
+    const user = await User.createUser(username, password, firstname, lastname, status, isactive, student_id);
     res.status(201).json(user);
   } catch (err) {
     res.status(500).json({ error: err.message });
