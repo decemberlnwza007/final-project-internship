@@ -51,7 +51,7 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-between">
+          <!-- <div class="flex items-center justify-between">
             <div class="flex items-center">
               <input v-model="rememberMe" id="remember-me" type="checkbox"
                 class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded" />
@@ -62,7 +62,7 @@
             <a href="#" class="text-sm text-red-600 hover:text-red-700 transition-colors duration-200">
               ลืมรหัสผ่าน?
             </a>
-          </div>
+          </div> -->
 
           <button type="submit" :disabled="isLoading"
             class="w-full bg-red-600 text-white py-3 px-4 cursor-pointer rounded-xl hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none">

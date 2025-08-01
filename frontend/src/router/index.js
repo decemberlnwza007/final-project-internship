@@ -40,6 +40,11 @@ const routes = [
         path: '/setting',
         name: 'setting',
         component: () => import('../views/Setting/SettingView.vue')
+    },
+    {
+        path: '/report',
+        name: 'report',
+        component: () => import('../views/InternshipReportView.vue')
     }
     //   {
     //     path: '/progress',

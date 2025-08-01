@@ -183,6 +183,13 @@ const menuItems = [
     href: '/organization'
   },
   {
+    label: 'แบบรายงานผลการปฏิบัติงาน',
+    icon: UserIcon,
+    color: 'text-red-600',
+    bg: 'bg-red-50',
+    href: '/report'
+  },
+  {
     label: 'ตารางเวลา',
     icon: ClockIcon,
     color: 'text-red-600',
@@ -195,13 +202,6 @@ const menuItems = [
     color: 'text-red-600',
     bg: 'bg-red-50',
     href: '/mentors'
-  },
-  {
-    label: 'ข้อมูลส่วนตัว',
-    icon: UserIcon,
-    color: 'text-red-600',
-    bg: 'bg-red-50',
-    href: '/profile'
   },
   {
     label: 'ตั้งค่า',
