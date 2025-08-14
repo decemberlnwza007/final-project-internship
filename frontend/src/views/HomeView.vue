@@ -18,8 +18,8 @@
 
                 <div class="relative text-center space-y-8">
                     <h1
-                        class="text-7xl font-bold bg-gradient-to-r from--700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow-sm">
-                        ยินดีต้อนรับ คุณ {{ firstname }}
+                        class="text-7xl font-bold bg-gradient-to-r from-red-700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow-sm">
+                        ยินดีต้อนรับ คุณ{{ firstname }}
                     </h1>
 
                     <div class="relative">

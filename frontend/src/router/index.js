@@ -45,6 +45,11 @@ const routes = [
         path: '/report',
         name: 'report',
         component: () => import('../views/InternshipReportView.vue')
+    },
+    {
+        path: '/stdinfo',
+        name: 'stdinfo',
+        component: () => import('../views/Admin/StudentInfoView.vue')
     }
     //   {
     //     path: '/progress',

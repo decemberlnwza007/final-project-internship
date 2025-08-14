@@ -18,7 +18,7 @@
 
     <div
       :class="[
-        'fixed lg:static inset-y-0 left-0 z-40 w-80 sm:w-72 md:w-80 flex flex-col',
+        'fixed lg:static inset-y-0 left-0 z-40 w-80 sm:w-72 md:w-80 h-full flex flex-col',
         'bg-white/90 backdrop-blur-xl border-r border-slate-200/60',
         'shadow-2xl shadow-slate-200/30 transform transition-all duration-300 ease-out',
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
@@ -145,7 +145,8 @@ import {
   Building2 as Building2Icon,
   X as XIcon,
   User2 as User2Icon,
-  Plus as PlusIcon
+  Plus as PlusIcon,
+  User
 } from 'lucide-vue-next';
 
 import { useRouter, useRoute } from 'vue-router';
@@ -169,6 +170,13 @@ const menuItems = [
     color: 'text-red-600',
     bg: 'bg-red-50',
     href: '/homeadmin'
+  },
+  {
+    label: 'นักศึกษา',
+    icon: User,
+    color: 'text-red-600',
+    bg: 'bg-red-50',
+    href: '/stdinfo'
   },
   {
     label: 'เพิ่มผู้ใช้',

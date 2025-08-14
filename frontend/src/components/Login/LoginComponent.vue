@@ -165,8 +165,10 @@ const handleLogin = async () => {
     if (response.data.success) {
       const token = response.data.token;
       localStorage.setItem('token', token);
+      localStorage.setItem('username', response.data.user.username);
       localStorage.setItem('firstname', response.data.user.firstname);
       localStorage.setItem('lastname', response.data.user.lastname);
+      localStorage.setItem('studentId', response.data.user.student_id);
 
       if (response.data.user.isactive === '0') {
         showInfo('กรุณาติดต่อแอดมิน')
@@ -176,6 +178,7 @@ const handleLogin = async () => {
           router.push('/homeadmin');
         } else if (response.data.user.status === 'student') {
           showSuccessToast('เข้าสู่ระบบสำเร็จ')
+          console.log(response.data.user.student_id)
           router.push('/home');
         }
       }
