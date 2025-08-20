@@ -190,7 +190,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, inject } from "vue";
 
 import { useToastService } from '../../lib/toastService';
 
@@ -285,6 +285,8 @@ const fetchData = async () => {
   }
 };
 
+const showOrganization = inject("showOrganization")
+
 const submitForm = async () => {
   try {
     const formData = new FormData();
@@ -314,7 +316,7 @@ const submitForm = async () => {
     await res.json();
     showSuccessToast("บันทึกข้อมูลสำเร็จ");
 
-    await fetchData();
+    showOrganization.value = false;
   } catch (err) {
     console.error(err);
   }

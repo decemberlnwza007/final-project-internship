@@ -20,15 +20,15 @@
         <form @submit.prevent="handleLogin" class="space-y-4">
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-2">
-              รหัสผู้ใช้งาน
+              รหัสนักศึกษา
             </label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <UserIcon class="h-5 w-5 text-slate-400" />
               </div>
-              <input v-model="formData.username" type="text" name="username"
+              <input v-model="formData.student_id" type="text" name="student_id"
                 class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 focus:outline-none"
-                placeholder="กรอกรหัสผู้ใช้งาน" required />
+                placeholder="กรอกรหัสนักศึกษา" required />
             </div>
           </div>
 
@@ -142,7 +142,7 @@ const showInfoToast = (message) => {
 const router = useRouter();
 
 const formData = ref({
-  username: '',
+  student_id: '',
   password: ''
 })
 
@@ -157,36 +157,38 @@ const togglePassword = () => {
 const handleLogin = async () => {
   try {
     const response = await axios.post(url + '/users/login', {
-      username: formData.value.username,
+      student_id: formData.value.student_id,
       password: formData.value.password
     });
 
+    console.log("Raw Response:", response.data);
 
     if (response.data.success) {
       const token = response.data.token;
       localStorage.setItem('token', token);
-      localStorage.setItem('username', response.data.user.username);
+      localStorage.setItem('studentId', response.data.user.student_id);
       localStorage.setItem('firstname', response.data.user.firstname);
       localStorage.setItem('lastname', response.data.user.lastname);
-      localStorage.setItem('studentId', response.data.user.student_id);
 
-      if (response.data.user.isactive === '0') {
+      if (response.data.user.isactive === 0 || response.data.user.isactive === '0') {
         showInfo('กรุณาติดต่อแอดมิน')
-      } else if (response.data.user.isactive === '1') {
+      } else if (response.data.user.isactive === 1 || response.data.user.isactive === '1' || response.data.user.isactive === true) {
         if (response.data.user.status === 'admin') {
           showSuccessToast('เข้าสู่ระบบสำเร็จ')
-          router.push('/homeadmin');
+          router.push('/homeadmin')
         } else if (response.data.user.status === 'student') {
           showSuccessToast('เข้าสู่ระบบสำเร็จ')
-          console.log(response.data.user.student_id)
-          router.push('/home');
+          console.log("Redirecting to /home ...")
+          router.push('/home')
         }
       }
+
     } else {
-      showErrorToast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+      showErrorToast('รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง')
     }
   } catch (error) {
-    showErrorToast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+    showErrorToast('รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง')
   }
 }
+
 </script>

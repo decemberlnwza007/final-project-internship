@@ -16,7 +16,7 @@
     <aside :class="[
       'fixed lg:static inset-y-0 left-0 z-40',
       'w-[82vw] sm:w-72 md:w-80 xl:w-88',
-      'flex flex-col h-full', 
+      'flex flex-col h-full',
       'bg-white/90 backdrop-blur-xl border-r border-slate-200/60',
       'shadow-2xl shadow-slate-200/30 transform transition-transform duration-300 ease-out',
       isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
@@ -103,7 +103,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, computed } from 'vue'
 import {
   Home as HomeIcon,
   FileText as FileTextIcon,
@@ -130,24 +130,28 @@ const studentId = ref('');
 
 const Logout = () => router.push('/')
 
+const showOrganization = ref(true)
+
 const activeItem = ref('')
 const isMobileMenuOpen = ref(false)
 
-const menuItems = [
-  { label: 'หน้าแรก', icon: HomeIcon, color: 'text-red-600', bg: 'bg-red-50', href: '/home' },
-  { label: 'เอกสารฝึกงาน', icon: FileTextIcon, color: 'text-red-600', bg: 'bg-red-50', href: '/document' },
-  { label: 'สถานประกอบการ', icon: BuildingIcon, color: 'text-red-600', bg: 'bg-red-50', href: '/organization' },
-  { label: 'แบบรายงานผลการปฏิบัติงาน', icon: UserIcon, color: 'text-red-600', bg: 'bg-red-50', href: '/report' },
-  { label: 'ตารางเวลา', icon: ClockIcon, color: 'text-red-600', bg: 'bg-red-50', href: '/schedule' },
-  { label: 'ผู้ดูแล/พี่เลี้ยง', icon: UsersIcon, color: 'text-red-600', bg: 'bg-red-50', href: '/mentors' },
-  { label: 'ตั้งค่า', icon: SettingsIcon, color: 'text-red-600', bg: 'bg-red-50', href: '/setting' }
-]
+const menuItems = computed(() => [
+  { label: 'หน้าแรก', icon: HomeIcon, href: '/home' },
+  { label: 'เอกสารฝึกงาน', icon: FileTextIcon, href: '/document' },
+  showOrganization.value
+    ? { label: 'สถานประกอบการ', icon: BuildingIcon, href: '/organization' }
+    : null,
+  { label: 'แบบรายงานผลการปฏิบัติงาน', icon: UserIcon, href: '/report' },
+  { label: 'ตารางเวลา', icon: ClockIcon, href: '/schedule' },
+  { label: 'ผู้ดูแล/พี่เลี้ยง', icon: UsersIcon, href: '/mentors' },
+  { label: 'ตั้งค่า', icon: SettingsIcon, href: '/setting' }
+].filter(Boolean))
 
 const toggleMobileMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value }
 const closeMobileMenu = () => { isMobileMenuOpen.value = false }
 
 const handleItemClick = (label) => {
-  const item = menuItems.find((i) => i.label === label)
+  const item = menuItems.value.find((i) => i.label === label)
   if (item?.href) router.push(item.href)
   activeItem.value = label
   closeMobileMenu()
@@ -156,11 +160,12 @@ const handleItemClick = (label) => {
 watch(
   () => route.path,
   (newPath) => {
-    const matchedItem = menuItems.find((item) => item.href === newPath)
+    const matchedItem = menuItems.value.find((item) => item.href === newPath)
     activeItem.value = matchedItem ? matchedItem.label : 'หน้าแรก'
   },
   { immediate: true }
 )
+
 
 const mq = window.matchMedia('(min-width: 1024px)')
 const handleMQ = (e) => { if (e.matches) closeMobileMenu() }

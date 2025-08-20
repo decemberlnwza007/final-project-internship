@@ -193,13 +193,6 @@ const menuItems = [
     href: '/user'
   },
   {
-    label: 'ตารางเวลา',
-    icon: ClockIcon,
-    color: 'text-red-600',
-    bg: 'bg-red-50',
-    href: '/schedule'
-  },
-  {
     label: 'ข้อมูลส่วนตัว',
     icon: UserIcon,
     color: 'text-red-600',

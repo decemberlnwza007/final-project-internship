@@ -50,6 +50,21 @@ const routes = [
         path: '/stdinfo',
         name: 'stdinfo',
         component: () => import('../views/Admin/StudentInfoView.vue')
+    },
+    {
+        path: '/pdf',
+        name: 'pdf',
+        component: () => import('../components/PDF/InternshipReportPDF.vue')
+    },
+    {
+        path: '/schedule',
+        name: 'schedule',
+        component: () => import('../views/ScheduleView.vue')
+    },
+    {
+        path: '/mentors',
+        name: 'mentor',
+        component: () => import('../views/MentorView.vue')
     }
     //   {
     //     path: '/progress',

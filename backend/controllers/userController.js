@@ -20,9 +20,11 @@ exports.getUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body;
+  const { student_id, password } = req.body;
+  console.log("Login Request:", student_id, password);
+
   try {
-    const { user, token } = await User.loginUser(username, password);
+    const { user, token } = await User.loginUser(student_id, password);
     res.json({ success: true, user, token });
   } catch (err) {
     res.status(401).json({ success: false, message: err.message });

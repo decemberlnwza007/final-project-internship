@@ -8,8 +8,9 @@ const getAllUsers = async () => {
   return result.rows;
 };
 
-const loginUser = async (username, password) => {
-  const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+const loginUser = async (student_id, password) => {
+  console.log("Checking student_id:", student_id);
+  const result = await db.query('SELECT * FROM users WHERE student_id = $1', [student_id]);
   if (result.rows.length === 0) throw new Error('ไม่พบผู้ใช้งานนี้');
 
   const user = result.rows[0];

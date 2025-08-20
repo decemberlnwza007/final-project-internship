@@ -164,64 +164,114 @@
                     แผนที่แสดงตำแหน่งสถานประกอบการ
                 </h1>
 
-                <div class="grid grid-cols-1 md:grid-cols-1 gap-8 mt-6 mb-12">
+                <div class="flex gap-2 mb-3">
+                    <input id="searchBox" type="text" placeholder="ค้นหาสถานประกอบการ" class="input-style"
+                        @keyup.enter="handleSearch" />
+                    <button @click="handleSearch"
+                        class="px-6 py-3 bg-red-600 text-white cursor-pointer font-semibold rounded-2xl hover:bg-red-700 active:scale-95 transition">
+                        ค้นหา
+                    </button>
+                </div>
+
+                <div id="map" class="w-full h-[500px] rounded-2xl shadow-lg mb-6"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-6 mb-12">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">สถานที่ใกล้เคียง</label>
                         <input type="text" placeholder="กรอกสถานที่ใกล้เคียง" class="input-style" />
                     </div>
                 </div>
 
-                <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">
-                    Upload รูปแผนที่ ที่ทำงานของนักศึกษา
-                </h1>
-
-                <div class="bg-white rounded-2xl shadow-xl p-8">
-                    <div
-                        class="relative border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer transition-all duration-300 hover:border-red-400 hover:bg-red-50 min-h-96">
-                        <input type="file" accept="image/*" class="hidden" multiple />
-
-                        <div class="space-y-6">
-                            <div
-                                class="mx-auto w-24 h-24 bg-gradient-to-br from-red-400 to-red-500 rounded-full flex items-center justify-center">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-
-                            <div class="space-y-2">
-                                <h3 class="text-xl font-semibold text-gray-700">
-                                    Image
-                                </h3>
-                            </div>
-
-                            <button
-                                class="bg-gradient-to-br from-red-600 to-red-800 text-white px-8 py-3 rounded-lg font-medium hover:from-red-600 cursor-pointer hover:to-red-800 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                                เลือกรูปภาพ
-                            </button>
-                        </div>
-                    </div>
+                <div>
+                    <h2 class="text-lg font-bold mb-2">พิกัดที่เลือก</h2>
+                    <p v-if="markerPos">
+                        Lat: {{ markerPos.lat }}, Lng: {{ markerPos.lng }}
+                    </p>
+                    <p v-else class="text-gray-500">ยังไม่ได้เลือกตำแหน่ง</p>
                 </div>
-
-
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
+import L from "leaflet";
+import "leaflet-control-geocoder";
 
-    const firstname = ref('');
-    const lastname = ref('');
+let map;
+let activeMarker = null;
 
-    onMounted(() => {
-        firstname.value = localStorage.getItem('firstname');
-        lastname.value = localStorage.getItem('lastname');
-    })
+const firstname = ref("");
+const lastname = ref("");
+const markerPos = ref(null);
+
+const geocoder = L.Control.Geocoder.nominatim({
+    geocodingQueryParams: {
+        countrycodes: 'th'
+    }
+});
+
+
+const handleSearch = () => {
+    const searchBox = document.getElementById("searchBox");
+    if (!searchBox.value) return;
+
+    geocoder.geocode(searchBox.value, (results) => {
+        if (results.length > 0) {
+            const pos = results[0].center;
+            markerPos.value = { lat: pos.lat, lng: pos.lng };
+
+            if (activeMarker) map.removeLayer(activeMarker);
+            activeMarker = L.marker(pos).addTo(map);
+            map.setView(pos, 16);
+
+            localStorage.setItem("leafletMarker", JSON.stringify(markerPos.value));
+        }
+    });
+};
+
+onMounted(() => {
+    firstname.value = localStorage.getItem("firstname");
+    lastname.value = localStorage.getItem("lastname");
+
+    map = L.map("map").setView([13.7563, 100.5018], 13);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    const saved = localStorage.getItem("leafletMarker");
+    if (saved) {
+        markerPos.value = JSON.parse(saved);
+        activeMarker = L.marker([markerPos.value.lat, markerPos.value.lng]).addTo(
+            map
+        );
+        map.setView([markerPos.value.lat, markerPos.value.lng], 16);
+    }
+
+    map.on("click", (e) => {
+        const pos = { lat: e.latlng.lat, lng: e.latlng.lng };
+        markerPos.value = pos;
+
+        if (activeMarker) {
+            map.removeLayer(activeMarker);
+        }
+
+        activeMarker = L.marker([pos.lat, pos.lng]).addTo(map);
+
+        localStorage.setItem("leafletMarker", JSON.stringify(pos));
+    });
+});
 </script>
 
 <style scoped>
+#map {
+    width: 100%;
+    height: 500px;
+}
+
 .scroll-style::-webkit-scrollbar {
     width: 10px;
 }
@@ -233,5 +283,16 @@
 
 .scroll-style::-webkit-scrollbar-track {
     background: transparent;
+}
+
+.leaflet-control-geocoder {
+    width: 300px;
+    max-width: 80%;
+}
+
+.leaflet-control-geocoder-form input {
+    height: 40px;
+    font-size: 16px;
+    padding: 5px 10px;
 }
 </style>

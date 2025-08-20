@@ -9,6 +9,8 @@ import 'vue-toastification/dist/index.css'
 import './assets/globals.css'
 import './assets/index.css'
 
+import "leaflet/dist/leaflet.css";
+
 const app = createApp(App)
 
 app.use(router)
