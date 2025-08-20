@@ -1,74 +1,43 @@
 <template>
-  <div
-    class="min-h-screen flex flex-wrap w-11/12 gap-8 items-center justify-center mx-auto py-10"
-  >
+  <div class="min-h-screen grid grid-cols-1 md:grid-cols-2">
     <div
-      v-for="student in students"
-      :key="student.id"
-      class="bg-white rounded-3xl shadow-md hover:shadow-2xl hover:scale-[1.02] transform transition-all duration-300 overflow-hidden max-w-xs w-full border border-gray-100"
+      class="group relative flex flex-col items-center justify-center text-white p-10 overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] bg-cover bg-center"
+      style="background-image: url('https://images.wallpapersden.com/image/download/programming-coding-language_bGhpbm6UmZqaraWkpJRmbmdlrWZlbWU.jpg');"
     >
-      <div class="relative bg-gradient-to-r from-red-600 to-red-800 h-28 flex items-center justify-center">
-        <span
-          class="absolute top-3 right-3 bg-white/90 text-red-700 text-xs font-semibold px-3 py-1 rounded-full shadow"
-        >
-          นักศึกษา
-        </span>
-        <img
-          class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover absolute -bottom-12"
-          src="https://i.pinimg.com/736x/bb/d2/2f/bbd22f6b6258a773da63e3b2207996a9.jpg"
-          alt="Student Profile"
-        />
-      </div>
-
-      <div class="pt-16 pb-6 px-6 text-center">
-        <h2 class="text-lg font-bold text-gray-800">{{ student.student_code }}</h2>
-        <p class="text-gray-600 mt-1 text-sm">
-          {{ student.firstname_th }} {{ student.lastname_th }}
-        </p>
-
-        <div class="mt-5">
-          <button
-            class="px-5 py-2 bg-gradient-to-r cursor-pointer from-red-600 to-red-700 w-full text-white rounded-xl font-medium hover:from-red-500 hover:to-red-600 transition-all duration-300 shadow-md hover:shadow-lg"
-          >
-            ดูข้อมูล
-          </button>
-        </div>
-      </div>
-
-      <div
-        class="bg-gray-50 px-6 py-4 text-sm text-gray-600 border-t border-gray-100"
+      <div class="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition duration-500"></div>
+      <h1
+        class="text-5xl md:text-6xl font-extrabold mb-6 relative z-10 drop-shadow-[0_3px_6px_rgba(0,0,0,0.8)]"
       >
-        <p class="flex items-center gap-2 mb-2">
-          <Phone class="w-4 h-4 text-red-500" />
-          <span>{{ student.mobile }}</span>
-        </p>
-        <p class="flex items-center gap-2">
-          <Mail class="w-4 h-4 text-red-500" />
-          <span>{{ student.email }}</span>
-        </p>
-      </div>
+        เทคโนโลยีสารสนเทศ
+      </h1>
+
+      <span
+        class="absolute bottom-6 right-6 text-8xl text-blue-200/90 font-extrabold z-10 drop-shadow-[0_3px_6px_rgba(0,0,0,0.8)]"
+      >
+        IT
+      </span>
+    </div>
+
+    <div
+      class="group relative flex flex-col items-center justify-center text-white p-10 overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] bg-cover bg-center"
+      style="background-image: url('https://www.mtu.edu/mechatronics/what-is/images/shutterstock-368354981-banner2400.jpg');"
+    >
+      <div class="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition duration-500"></div>
+
+      <h1
+        class="text-5xl md:text-6xl font-extrabold mb-6 relative z-10 drop-shadow-[0_3px_6px_rgba(0,0,0,0.8)]"
+      >
+        เมคคาทรอนิกส์และหุ่นยนต์
+      </h1>
+
+      <span
+        class="absolute bottom-6 right-6 text-8xl text-red-200/90 font-extrabold z-10 drop-shadow-[0_3px_6px_rgba(0,0,0,0.8)]"
+      >
+        MECHA
+      </span>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { Phone, Mail } from "lucide-vue-next";
-import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_API_URL;
-const students = ref([]);
-
-const fetchData = async () => {
-  try {
-    const response = await axios.get(BASE_URL + "/user/student");
-    students.value = response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-onMounted(() => {
-  fetchData();
-});
 </script>

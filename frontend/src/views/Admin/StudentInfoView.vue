@@ -3,23 +3,7 @@
         <AdminSidebarComponent />
 
         <div class="flex-1 relative overflow-hidden">
-
-            <div
-                class="relative bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-red-200/50 p-12 ml-6 mt-6 mb-10 mr-6 min-h-[calc(100vh-5rem)] overflow-hidden">
-                <div class="absolute inset-0 opacity-5">
-                    <div
-                        class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-600 to-red-800 pattern-dots">
-                    </div>
-                </div>
-
-                <div class="relative flex justify-center mb-8">
-                    <ShowStudentInfoComponent />
-                </div>
-
-                <div class="relative text-center space-y-8">
-
-                </div>
-            </div>
+            <ShowStudentInfoComponent />
         </div>
     </div>
 </template>
