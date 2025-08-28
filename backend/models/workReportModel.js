@@ -43,6 +43,11 @@ const createWorkReport = async (data = {}) => {
     mentor_lastname = null,
   } = data;
 
+  console.log("➡️ createWorkReport() received:");
+  console.log("student_id_code:", student_id_code);
+  console.log("📷 insert length1:", work_photo_1?.length, "length2:", work_photo_2?.length);
+
+
   const query = `
     INSERT INTO work_reports (
       student_id_code, firstname, lastname, company_name,
@@ -74,6 +79,7 @@ const createWorkReport = async (data = {}) => {
   const result = await db.query(query, params);
   return result.rows[0];
 };
+
 
 module.exports = {
   createWorkReport,

@@ -79,17 +79,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">ชื่อจริง (ภาษาอังกฤษ)</label>
-                        <input type="text" placeholder="กรอกชื่อจริง (อังกฤษ)" class="input-style" />
+                        <input type="text" placeholder="กรอกชื่อจริง (อังกฤษ)" v-model="firstnameEn" class="input-style" />
                     </div>
 
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">นามสกุล (ภาษาอังกฤษ)</label>
-                        <input type="text" placeholder="กรอกนามสกุล (อังกฤษ)" class="input-style" />
+                        <input type="text" placeholder="กรอกนามสกุล (อังกฤษ)" v-model="lastnameEn" class="input-style" />
                     </div>
 
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">สาขาวิชา</label>
-                        <input type="text" placeholder="กรอกสาขาวิชา" class="input-style" />
+                        <input type="text" placeholder="กรอกสาขาวิชา" v-model="department" class="input-style" />
                     </div>
 
                     <div>
@@ -113,56 +113,56 @@
 
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">เกรดเฉลี่ยรวม</label>
-                        <input type="text" placeholder="กรอกเกรดเฉลี่ยรวม" class="input-style" />
+                        <input type="text" placeholder="กรอกเกรดเฉลี่ยรวม" v-model="cumulative_gpa" class="input-style" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-6">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">บัตรประจำตัวประชาชนเลขที่</label>
-                        <input type="text" placeholder="กรอกเลขบัตรประจำตัวประชาชน" class="input-style" />
+                        <input type="text" placeholder="กรอกเลขบัตรประจำตัวประชาชน" v-model="citizenId" class="input-style" />
                     </div>
 
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">ออกให้ ณ</label>
-                        <input type="text" placeholder="กรอก" class="input-style" />
+                        <input type="text" placeholder="กรอก" v-model="idcard_issued_at" class="input-style" />
                     </div>
 
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">วันที่ออกบัตร</label>
-                        <input type="text" placeholder="กรอกวันที่ออกบัตร" class="input-style" />
+                        <input type="text" placeholder="กรอกวันที่ออกบัตร" v-model="idcard_issued_date" class="input-style" />
                     </div>
 
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">เมื่อวันที่หมดอายุ</label>
-                        <input type="text" placeholder="กรอกวันที่หมดอายุ" class="input-style" />
+                        <input type="text" placeholder="กรอกวันที่หมดอายุ" v-model="idcardExpiryDate" class="input-style" />
                     </div>
                 </div>
 
                 <div class="layout-1">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">เชื้อชาติ</label>
-                        <input type="text" placeholder="กรอกเชื้อชาติ" class="input-style" />
+                        <input type="text" placeholder="กรอกเชื้อชาติ" v-model="ethnicity" class="input-style" />
                     </div>
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">สัญชาติ</label>
-                        <input type="text" placeholder="กรอกสัญชาติ" class="input-style" />
+                        <input type="text" placeholder="กรอกสัญชาติ" v-model="nationality" class="input-style" />
                     </div>
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">ศาสนา</label>
-                        <input type="text" placeholder="กรอกศาสนา" class="input-style" />
+                        <input type="text" placeholder="กรอกศาสนา" v-model="religion" class="input-style" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">โรคประจำตัว</label>
-                        <input type="text" placeholder="กรอกโรคประจำตัว" class="input-style" />
+                        <input type="text" placeholder="กรอกโรคประจำตัว" v-model="congenitalDisease" class="input-style" />
                     </div>
 
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">ยารักษาที่ใช้เป็นประจำ</label>
-                        <input type="text" placeholder="กรอกยารักษาที่ใช้เป็นประจำ" class="input-style" />
+                        <input type="text" placeholder="กรอกยารักษาที่ใช้เป็นประจำ" v-model="regularMedication" class="input-style" />
                     </div>
                 </div>
 
@@ -174,19 +174,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-6">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">โทรศัพท์</label>
-                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์" class="input-style" />
+                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์"  class="input-style" />
                     </div>
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">โทรศัพท์เคลื่อนที่</label>
-                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์เคลื่อนที่" class="input-style" />
+                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์เคลื่อนที่" v-model="phone" class="input-style" />
                     </div>
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">โทรสาร</label>
-                        <input type="text" placeholder="กรอกโทรสาร" class="input-style" />
+                        <input type="text" placeholder="กรอกโทรสาร" v-model="fax" class="input-style" />
                     </div>
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">E-Mail</label>
-                        <input type="text" placeholder="กรอกอีเมล" class="input-style" />
+                        <input type="text" placeholder="กรอกอีเมล" v-model="email" class="input-style" />
                     </div>
                 </div>
 
@@ -244,13 +244,13 @@
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             ชื่อบิดา
                         </label>
-                        <input type="text" placeholder="กรอกชื่อบิดา" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกชื่อบิดา" v-model="fatherName" class="input-style w-full" />
                     </div>
                     <div>
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             อายุบิดา
                         </label>
-                        <input type="text" placeholder="กรอกอายุบิดา" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกอายุบิดา" v-model="fatherAge" class="input-style w-full" />
                     </div>
                 </div>
 
@@ -259,13 +259,13 @@
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             อาชีพบิดา
                         </label>
-                        <input type="text" placeholder="กรอกอาชีพบิดา" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกอาชีพบิดา" v-model="fatherJob" class="input-style w-full" />
                     </div>
                     <div>
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             โทรศัพท์
                         </label>
-                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์" v-model="fatherPhone" class="input-style w-full" />
                     </div>
                 </div>
 
@@ -273,7 +273,7 @@
                     <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                         ที่อยู่บิดา
                     </label>
-                    <input type="text" placeholder="กรอกที่อยู่บิดา" class="input-style w-full" />
+                    <input type="text" placeholder="กรอกที่อยู่บิดา" v-model="fatherAddress" class="input-style w-full" />
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mt-6">
@@ -281,13 +281,13 @@
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             ชื่อมารดา
                         </label>
-                        <input type="text" placeholder="กรอกชื่อมารดา" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกชื่อมารดา" v-model="motherName" class="input-style w-full" />
                     </div>
                     <div>
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             อายุมารดา
                         </label>
-                        <input type="text" placeholder="กรอกอายุมารดา" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกอายุมารดา" v-model="motherAge" class="input-style w-full" />
                     </div>
                 </div>
 
@@ -296,13 +296,13 @@
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             อาชีพมารดา
                         </label>
-                        <input type="text" placeholder="กรอกอาชีพมารดา" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกอาชีพมารดา" v-model="motherJob" class="input-style w-full" />
                     </div>
                     <div>
                         <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                             โทรศัพท์
                         </label>
-                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์" class="input-style w-full" />
+                        <input type="text" placeholder="กรอกเบอร์โทรศัพท์" v-model="motherPhone" class="input-style w-full" />
                     </div>
                 </div>
 
@@ -310,7 +310,7 @@
                     <label class="block text-base sm:text-lg font-semibold text-gray-800 mb-2">
                         ที่อยู่มารดา
                     </label>
-                    <input type="text" placeholder="กรอกที่อยู่มารดา" class="input-style w-full" />
+                    <input type="text" placeholder="กรอกที่อยู่มารดา" v-model="motherAddress" class="input-style w-full" />
                 </div>
 
 
@@ -565,6 +565,7 @@
 
             </div>
             <button
+            @click="submitStudent"
                 class="bg-gradient-to-br w-full from-red-600 cursor-pointer to-red-800 text-white px-8 py-4 rounded-lg font-medium hover:from-red-600 hover:to-red-800 transition-all duration-300 transform shadow-lg">บันทึก</button>
         </div>
     </div>
@@ -574,19 +575,52 @@
 import { ref, onMounted, watch, reactive, computed } from 'vue';
 import { PlusIcon, TrashIcon, ArrowUp, ArrowDown, Copy } from 'lucide-vue-next';
 
-const name = ref('');
-const firstname = ref('');
-const lastname = ref('');
-const studentId = ref('');
-
-const fileInput = ref(null);
-const images = ref([]);
-
-const level = ref('');
+const studentId = ref("");
+const firstname = ref("");
+const lastname = ref("");
+const firstnameEn = ref("");
+const lastnameEn = ref("");
+const major = ref("");
+const department = ref("");
+const classYear = ref("");
+const lastTermGpa = ref("");
+const cumulativeGpa = ref("");
+const citizenId = ref("");
+const idcardIssuedAt = ref("");
+const idcardIssuedDate = ref("");
+const idcardExpiryDate = ref("");
+const ethnicity = ref("");
+const nationality = ref("");
+const religion = ref("");
+const congenitalDisease = ref("");
+const regularMedication = ref("");
+const phone = ref("");
+const mobile = ref("");
+const fax = ref("");
+const email = ref("");
+const emergencyName = ref("");
+const emergencyRelation = ref("");
+const emergencyAddress = ref("");
+const emergencyPhone = ref("");
+const emergencyMobile = ref("");
+const emergencyFax = ref("");
+const emergencyEmail = ref("");
+const fatherName = ref("");
+const fatherAge = ref("");
+const fatherJob = ref("");
+const fatherPhone = ref("");
+const fatherAddress = ref("");
+const motherName = ref("");
+const motherAge = ref("");
+const motherJob = ref("");
+const motherPhone = ref("");
+const motherAddress = ref("");
 
 const currentYearEn = new Date().getFullYear();
 
-const currentYearTH = currentYearEn + 543;
+const images = ref([]);
+
+const currentYearTH = new Date().getFullYear() + 543;
 
 const levelOptions = [
     { id: 'primary', name: 'ประถมศึกษา' },
@@ -650,30 +684,92 @@ const languages = reactive([
 ])
 
 const handleFileUpload = (event) => {
-    const files = Array.from(event.target.files);
-    files.forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            images.value.push(e.target.result);
-        }
-        reader.readAsDataURL(file);
-    })
+  const files = Array.from(event.target.files);
+  files.forEach((file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      images.value.push(e.target.result);
+    }
+    reader.readAsDataURL(file);
+  })
 }
+
 
 const removeImage = (index) => {
     images.value.splice(index, 1)
 }
 
-// onMounted(() => {
-//     const saved = localStorage.getItem('name');
-//     if(saved) {
-//         name.value = saved;
-//     }
-// });
+const submitStudent = async () => {
+  try {
+    const payload = {
+      student_code: studentId.value,
+      academic_year_th: currentYearTH,
+      firstname_th: firstname.value,
+      lastname_th: lastname.value,
+      firstname_en: firstnameEn.value || null,
+      lastname_en: lastnameEn.value || null,
+      major: major.value,
+      department: department.value,
+      class_year: classYear.value,
+      last_term_gpa: lastTermGpa.value,
+      cumulative_gpa: cumulativeGpa.value,
+      citizen_id: citizenId.value,
+      idcard_issued_at: idcardIssuedAt.value || null,
 
-// watch(name, (newVal) => {
-//     localStorage.setItem('name', newVal);
-// });
+      idcard_issued_date: idcardIssuedDate.value || null,
+      idcard_expiry_date: idcardExpiryDate.value || null,
+
+      ethnicity: ethnicity.value,
+      nationality: nationality.value,
+      religion: religion.value,
+      congenital_disease: congenitalDisease.value,
+      regular_medication: regularMedication.value,
+      phone: phone.value,
+      mobile: mobile.value,
+      fax: fax.value,
+      email: email.value,
+      emergency: {
+        fullname: emergencyName.value,
+        relationship: emergencyRelation.value,
+        address: emergencyAddress.value,
+        phone: emergencyPhone.value,
+        mobile_phone: emergencyMobile.value,
+        fax: emergencyFax.value,
+        email: emergencyEmail.value
+      },
+      family: {
+        father_name: fatherName.value,
+        father_age: fatherAge.value,
+        father_job: fatherJob.value,
+        father_phone: fatherPhone.value,
+        father_address: fatherAddress.value,
+        mother_name: motherName.value,
+        mother_age: motherAge.value,
+        mother_job: motherJob.value,
+        mother_phone: motherPhone.value,
+        mother_address: motherAddress.value
+      },
+      school_name: "วิทยาลัยเทคนิคสมุทรสาคร",
+
+      internship_start: "2025-01-01" || null,
+      internship_end: "2025-03-01" || null
+    };
+
+    const res = await fetch("http://localhost:3001/users/student", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error("❌ insert ไม่สำเร็จ");
+    const data = await res.json();
+    alert("✅ บันทึกเรียบร้อยแล้ว!");
+    console.log("response:", data);
+  } catch (err) {
+    console.error("insert error:", err);
+  }
+};
+
 
 onMounted(() => {
     firstname.value = localStorage.getItem('firstname') || '';

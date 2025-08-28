@@ -2,6 +2,11 @@
   <div class="min-h-screen p-6">
     <div class="max-w-12xl mx-auto bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-red-200 p-10
         overflow-hidden relative">
+
+      <div v-if="alreadySubmitted" class="text-center p-10">
+        <h2 class="text-2xl font-bold text-green-600">คุณได้กรอกข้อมูลแล้ว</h2>
+        <p class="text-gray-600 mt-4">ไม่สามารถบันทึกข้อมูลซ้ำได้</p>
+      </div>
       <div class="max-h-[85vh] overflow-y-auto pr-6 scroll-style pb-6">
         <h1
           class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-red-700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow">
@@ -115,8 +120,9 @@
 
             <div v-else class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-4">
               <div v-for="(img, index) in image1" :key="index" class="relative group">
-                <img :src="img"
-                  class="rounded-lg shadow-lg w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 " />
+                <img :src="img.work_photo_1" alt="work photo 1"
+                  class="rounded-lg shadow-lg w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+
                 <button @click.stop="removeImage1(index)"
                   class="absolute top-2 right-2 bg-white/80 backdrop-blur-md text-red-600 rounded-full p-2 shadow-lg hover:bg-red-600 hover:text-white cursor-pointer transition">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,6 +131,7 @@
                 </button>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -157,8 +164,9 @@
 
             <div v-else class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-4">
               <div v-for="(img, index) in image2" :key="index" class="relative group">
-                <img :src="img"
-                  class="rounded-lg shadow-lg w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 " />
+                <img :src="img" alt="work photo 2"
+                  class="rounded-lg shadow-lg w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+
                 <button @click.stop="removeImage2(index)"
                   class="absolute top-2 right-2 bg-white/80 backdrop-blur-md text-red-600 rounded-full p-2 shadow-lg hover:bg-red-600 hover:text-white cursor-pointer transition">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,6 +175,7 @@
                 </button>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -182,7 +191,7 @@
         </div>
 
 
-        <button @click="submitForm"
+        <button @click="submitForm" v-if="!alreadySubmitted"
           class="bg-gradient-to-br w-full from-red-600 cursor-pointer to-red-800 text-white px-8 py-4 rounded-lg font-medium hover:from-red-600 hover:to-red-800 transition-all duration-300 transform shadow-lg">บันทึก</button>
       </div>
     </div>
@@ -191,14 +200,12 @@
 
 <script setup>
 import { ref, onMounted, inject } from "vue";
-
 import { useToastService } from '../../lib/toastService';
 
 const { showSuccess } = useToastService();
+const showSuccessToast = (message) => showSuccess(message);
 
-const showSuccessToast = (message) => {
-  showSuccess(message);
-}
+const alreadySubmitted = ref(false);
 
 const studentId = ref("");
 const firstname = ref("");
@@ -211,59 +218,98 @@ const other_work = ref("");
 const problem_found = ref("");
 const solution_method = ref("");
 const lessons_learned = ref("");
-const work_photo_1 = ref(null);
-const work_photo_2 = ref(null);
 const mentor_firstname = ref("");
 const mentor_lastname = ref("");
 
 const image1 = ref([]);
 const image2 = ref([]);
+const work_photo_1 = ref(null);
+const work_photo_2 = ref(null);
 
-const handleFile1 = (event) => {
-  const files = event.target.files;
-  if (!files.length) return;
-  work_photo_1.value = files[0];
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (err) => reject(err);
+  });
+};
+
+const handleFile1 = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  work_photo_1.value = await fileToBase64(file);
+  image1.value = [work_photo_1.value];
+};
+
+const handleFile2 = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  work_photo_2.value = await fileToBase64(file);
+  image2.value = [work_photo_2.value];
+};
+
+const removeImage1 = () => {
   image1.value = [];
-  Array.from(files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      image1.value.push(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  });
-};
-
-const handleFile2 = (event) => {
-  const files = event.target.files;
-  if (!files.length) return;
-  work_photo_2.value = files[0];
-  image2.value = [];
-  Array.from(files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      image2.value.push(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  });
-};
-
-const removeImage1 = (index) => {
-  image1.value.splice(index, 1);
   work_photo_1.value = null;
 };
 
-const removeImage2 = (index) => {
-  image2.value.splice(index, 1);
+const removeImage2 = () => {
+  image2.value = [];
   work_photo_2.value = null;
 };
 
+const submitForm = async () => {
+  try {
+    const payload = {
+      student_id_code: studentId.value,
+      firstname: firstname.value,
+      lastname: lastname.value,
+      company_name: company_name.value,
+      position_title: position_title.value,
+      position_duties: position_duties.value,
+      work_matching_course: work_matching_course.value,
+      other_work: other_work.value,
+      problem_found: problem_found.value,
+      solution_method: solution_method.value,
+      lessons_learned: lessons_learned.value,
+      mentor_firstname: mentor_firstname.value,
+      mentor_lastname: mentor_lastname.value,
+      work_photo_1: work_photo_1.value,
+      work_photo_2: work_photo_2.value
+    };
+
+    console.log("🚀 payload ส่งไป backend:", {
+      work_photo_1: payload.work_photo_1 ? payload.work_photo_1.substring(0, 100) : null,
+      work_photo_2: payload.work_photo_2 ? payload.work_photo_2.substring(0, 100) : null
+    });
+
+    const res = await fetch("http://localhost:3001/work/report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error("ส่งข้อมูลไม่สำเร็จ");
+    await res.json();
+
+    showSuccessToast("บันทึกข้อมูลสำเร็จ");
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
 const fetchData = async () => {
-  console.log(studentId.value)
   if (!studentId.value) return;
   try {
     const res = await fetch(`http://localhost:3001/work/get_id/${studentId.value}`);
     if (!res.ok) throw new Error("ไม่สามารถดึงข้อมูลได้");
     const data = await res.json();
+
+    if (data && data.firstname) {
+      alreadySubmitted.value = true;
+    }
 
     firstname.value = data.firstname || "";
     lastname.value = data.lastname || "";
@@ -285,54 +331,13 @@ const fetchData = async () => {
   }
 };
 
-const showOrganization = inject("showOrganization")
-
-const submitForm = async () => {
-  try {
-    const formData = new FormData();
-    formData.append("student_id_code", studentId.value);
-    formData.append("firstname", firstname.value);
-    formData.append("lastname", lastname.value);
-    formData.append("company_name", company_name.value);
-    formData.append("position_title", position_title.value);
-    formData.append("position_duties", position_duties.value);
-    formData.append("work_matching_course", work_matching_course.value);
-    formData.append("other_work", other_work.value);
-    formData.append("problem_found", problem_found.value);
-    formData.append("solution_method", solution_method.value);
-    formData.append("lessons_learned", lessons_learned.value);
-    formData.append("mentor_firstname", mentor_firstname.value);
-    formData.append("mentor_lastname", mentor_lastname.value);
-
-    if (work_photo_1.value) formData.append("work_photo_1", work_photo_1.value);
-    if (work_photo_2.value) formData.append("work_photo_2", work_photo_2.value);
-
-    const res = await fetch("http://localhost:3001/work/report", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!res.ok) throw new Error("ส่งข้อมูลไม่สำเร็จ");
-    await res.json();
-    showSuccessToast("บันทึกข้อมูลสำเร็จ");
-
-    showOrganization.value = false;
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 onMounted(() => {
   studentId.value = localStorage.getItem("studentId") || "";
   fetchData();
-  setInterval(fetchData, 5000);
-});
-
-onMounted(() => {
-  firstname.value = localStorage.getItem("firstname") || "";
-  lastname.value = localStorage.getItem("lastname") || "";
 });
 </script>
+
 
 <style scoped>
 .scroll-style::-webkit-scrollbar {

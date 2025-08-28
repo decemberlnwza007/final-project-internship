@@ -2,23 +2,43 @@
     <div class="min-h-screen bg-gradient-to-b from-white via-red-50 to-white p-6">
         <div
             class="max-w-12xl mx-auto bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl border border-red-200 p-10 overflow-hidden relative">
-            <h1
-                class="text-4xl font-extrabold text-center mb-12 bg-gradient-to-r from-red-700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow-lg">
-                รายงานผลการปฏิบัติงาน
-            </h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div v-for="week in 4" :key="week"
-                    class="p-6 bg-gradient-to-br from-white to-red-50 rounded-2xl border border-red-200 shadow-lg hover:shadow-xl transition cursor-pointer">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
-                        สัปดาห์ที่ {{ week }}
-                    </h2>
-                    <p class="text-gray-600 mb-6">เพิ่มรายงานผลการปฏิบัติงานสำหรับสัปดาห์นี้</p>
-                    <button @click="openModal(week)"
-                        class="w-full bg-gradient-to-r cursor-pointer from-red-600 to-red-800 text-white py-3 rounded-xl text-lg font-semibold shadow-md hover:from-red-500 hover:to-red-700 transform hover:scale-[1.02] transition-all duration-300">
-                        + เพิ่มรายงาน
-                    </button>
+            <div class="mb-10 text-center">
+                <label class="block text-2xl font-bold text-gray-800 mb-4">
+                    เลือกปีการศึกษา
+                </label>
+                <select v-model="selectedYear"
+                    class="px-6 py-3 rounded-xl border border-red-300 shadow-md focus:ring-2 focus:ring-red-500 focus:border-red-500 transition w-full md:w-1/2 text-lg">
+                    <option disabled value="">-- กรุณาเลือกปีการศึกษา --</option>
+                    <option v-for="year in academicYears" :key="year" :value="year">
+                        ปีการศึกษา {{ year }}
+                    </option>
+                </select>
+            </div>
+
+            <div v-if="selectedYear">
+                <h1
+                    class="text-4xl font-extrabold text-center mb-12 bg-gradient-to-r from-red-700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow-lg">
+                    รายงานผลการปฏิบัติงาน <span class="text-gray-700"> (ปีการศึกษา {{ selectedYear }}) </span>
+                </h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div v-for="week in 18" :key="week"
+                        class="p-6 bg-gradient-to-br from-white to-red-50 rounded-2xl border border-red-200 shadow-lg hover:shadow-xl transition cursor-pointer">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                            สัปดาห์ที่ {{ week }}
+                        </h2>
+                        <p class="text-gray-600 mb-6">เพิ่มรายงานผลการปฏิบัติงานสำหรับสัปดาห์นี้</p>
+                        <button @click="openModal(week)"
+                            class="w-full bg-gradient-to-r cursor-pointer from-red-600 to-red-800 text-white py-3 rounded-xl text-lg font-semibold shadow-md hover:from-red-500 hover:to-red-700 transform hover:scale-[1.02] transition-all duration-300">
+                            + เพิ่มรายงาน
+                        </button>
+                    </div>
                 </div>
+            </div>
+
+            <div v-else class="text-center text-gray-500 mt-10">
+                กรุณาเลือกปีการศึกษาเพื่อเริ่มรายงาน
             </div>
         </div>
 
@@ -154,6 +174,9 @@
 import { ref } from "vue";
 import gsap from 'gsap';
 
+const selectedYear = ref("");
+const academicYears = ref([2566, 2567, 2568]);
+
 const showModal = ref(false);
 const modal = ref(null);
 const currentWeek = ref(null);
@@ -201,6 +224,7 @@ const handleFile = (event, index) => {
 
 const saveReport = () => {
     console.log("บันทึก:", {
+        year: selectedYear.value,
         week: currentWeek.value,
         ...form.value,
         image1: image1.value,
@@ -210,47 +234,21 @@ const saveReport = () => {
 };
 
 const onEnter = (el, done) => {
-  gsap.fromTo(
-    modal.value,
-    { opacity: 0, y: 100, scale: 0.9 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", onComplete: done }
-  );
+    gsap.fromTo(
+        modal.value,
+        { opacity: 0, y: 100, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", onComplete: done }
+    );
 };
 
 const onLeave = (el, done) => {
-  gsap.to(modal.value, {
-    opacity: 0,
-    y: 50,
-    scale: 0.9,
-    duration: 0.3,
-    ease: "power3.in",
-    onComplete: done,
-  });
+    gsap.to(modal.value, {
+        opacity: 0,
+        y: 50,
+        scale: 0.9,
+        duration: 0.3,
+        ease: "power3.in",
+        onComplete: done,
+    });
 };
 </script>
-
-<style scoped>
-.scroll-style::-webkit-scrollbar {
-    width: 8px;
-}
-
-.scroll-style::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #f87171, #dc2626);
-    border-radius: 9999px;
-}
-
-.scroll-style::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.fade-zoom-enter-active,
-.fade-zoom-leave-active {
-    transition: all 0.25s ease;
-}
-
-.fade-zoom-enter-from,
-.fade-zoom-leave-to {
-    opacity: 0;
-    transform: scale(0.9);
-}
-</style>

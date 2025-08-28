@@ -241,6 +241,35 @@ const createStudentUpsertByCode = async (data) => {
   return res.rows[0];
 };
 
+const createParentsInsert = async (student_id, data) => {
+  const query = `
+    INSERT INTO parents (
+      student_id, father_name, father_age, father_job, father_phone, father_address,
+      mother_name, mother_age, mother_job, mother_phone, mother_address
+    )
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+    RETURNING *;
+  `;
+
+  const values = [
+    student_id,
+    data.father_name,
+    num(data.father_age),
+    data.father_job,
+    data.father_phone,
+    data.father_address,
+    data.mother_name,
+    num(data.mother_age),
+    data.mother_job,
+    data.mother_phone,
+    data.mother_address
+  ];
+
+  const res = await db.query(query, values);
+  return res.rows[0];
+};
+
+
 const createStudentWorkReport = async (data) => {
   try {
     const query = `
@@ -302,6 +331,7 @@ module.exports = {
   createStudentInsert,
   createStudentUpsertByCID,
   createStudentUpsertByCode,
+  createParentsInsert,
 
   createStudentWorkReport,
 

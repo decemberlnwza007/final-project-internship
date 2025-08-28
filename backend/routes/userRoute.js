@@ -10,7 +10,7 @@ router.put('/users/disable', userController.updateUserStatusDisable);
 router.put('/users/enable', userController.updateUserStatusEnable);
 router.post('/users/login', userController.login);
 
-router.post('/users/student', userController.postStudent);
+router.post('/users/student', userController.postStudentWithParents);
 router.get('/user/student', userController.showAllStudent);
 router.put('/users/update', userController.updateUserController);
 

@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const db = require('../config/db')
 
 exports.getUsers = async (req, res) => {
   try {
@@ -8,6 +9,39 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.postStudentWithParents = async (req, res, next) => {
+  const client = await db.connect();
+  try {
+    await client.query('BEGIN');
+
+    const studentPayload = mapFrontendToDB(req.body);
+    const student = await User.createStudentInsert(studentPayload, client);
+
+    const parentsPayload = {
+      father_name: req.body.family?.father_name,
+      father_age: req.body.family?.father_age,
+      father_job: req.body.family?.father_job,
+      father_phone: req.body.family?.father_phone,
+      father_address: req.body.family?.father_address,
+      mother_name: req.body.family?.mother_name,
+      mother_age: req.body.family?.mother_age,
+      mother_job: req.body.family?.mother_job,
+      mother_phone: req.body.family?.mother_phone,
+      mother_address: req.body.family?.mother_address
+    };
+    const parents = await User.createParentsInsert(student.id, parentsPayload, client);
+
+    await client.query('COMMIT');
+    res.status(201).json({ student, parents });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    next(err);
+  } finally {
+    client.release();
+  }
+};
+
 
 exports.getUser = async (req, res) => {
   try {
