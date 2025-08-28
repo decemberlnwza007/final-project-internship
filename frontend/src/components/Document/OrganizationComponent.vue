@@ -180,15 +180,25 @@
                         <label class="block text-lg font-semibold text-gray-800 mb-2">สถานที่ใกล้เคียง</label>
                         <input type="text" placeholder="กรอกสถานที่ใกล้เคียง" class="input-style" />
                     </div>
+                    
                 </div>
+                <a :href="markerPos ? `https://www.google.com/maps/dir/?api=1&destination=${markerPos.lat},${markerPos.lng}` : '#'"
+                    target="_blank"
+                    class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:from-green-500 hover:to-green-700 transition-all duration-300 ease-in-out">
+                    <Map class="w-6 h-6" />
+                    <span>เส้นทาง</span>
+                </a>
 
-                <div>
+                <!-- <div>
                     <h2 class="text-lg font-bold mb-2">พิกัดที่เลือก</h2>
                     <p v-if="markerPos">
                         Lat: {{ markerPos.lat }}, Lng: {{ markerPos.lng }}
                     </p>
                     <p v-else class="text-gray-500">ยังไม่ได้เลือกตำแหน่ง</p>
-                </div>
+                </div> -->
+
+                
+
             </div>
         </div>
     </div>
@@ -198,6 +208,8 @@
 import { ref, onMounted } from "vue";
 import L from "leaflet";
 import "leaflet-control-geocoder";
+
+import { Map } from "lucide-vue-next";
 
 let map;
 let activeMarker = null;
@@ -211,7 +223,6 @@ const geocoder = L.Control.Geocoder.nominatim({
         countrycodes: 'th'
     }
 });
-
 
 const handleSearch = () => {
     const searchBox = document.getElementById("searchBox");

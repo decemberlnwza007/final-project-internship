@@ -179,6 +179,13 @@ const menuItems = [
     href: '/stdinfo'
   },
   {
+    label: 'ปีการศึกษา',
+    icon: UserIcon,
+    color: 'text-red-600',
+    bg: 'bg-red-50',
+    href: '/term'
+  },
+  {
     label: 'เพิ่มผู้ใช้',
     icon: PlusIcon,
     color: 'text-red-600',
@@ -192,6 +199,7 @@ const menuItems = [
     bg: 'bg-red-50',
     href: '/user'
   },
+  
   {
     label: 'ข้อมูลส่วนตัว',
     icon: UserIcon,

@@ -65,6 +65,16 @@ const routes = [
         path: '/mentors',
         name: 'mentor',
         component: () => import('../views/MentorView.vue')
+    },
+    {
+        path: '/it',
+        name: 'it',
+        component: () => import('../components/Admin/StudentInfo/It.vue')
+    },
+    {
+        path: '/mecha',
+        name: 'mecha',
+        component: () => import('../components/Admin/StudentInfo/Mecha.vue')
     }
     //   {
     //     path: '/progress',

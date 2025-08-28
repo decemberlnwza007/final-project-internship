@@ -5,6 +5,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoute');
 const authRoutes = require('./routes/authRoute');
 const workRoutes = require('./routes/workRoute');
+const studentRoutes = require('./routes/studentRoute');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,6 +23,7 @@ app.use(session({
 app.use('/', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/', workRoutes);
+app.use('/student', studentRoutes);
 app.use("/uploads", express.static("uploads"));
 
 app.use((err, _req, res, _next) => {
