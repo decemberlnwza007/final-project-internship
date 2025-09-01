@@ -14,4 +14,8 @@ router.post(
 router.post('/work/get', workController.getWorkReportController);
 router.get('/work/get_id/:student_id_code', workController.getWorkReportByStudentIdCodeController);
 
+router.post('/accommodation', workController.postAccommodation);
+router.get('/accommodation', workController.getAccommodationController);
+router.get('/accommodation/:student_id', workController.getAccommodationByStudentIdController);
+
 module.exports = router;

@@ -1,12 +1,14 @@
-import * as pdfMake from "pdfmake/build/pdfmake";
-import { vfs } from "@/assets/fonts/vfs_fonts"; // ไฟล์ที่ generate มา
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import "@/assets/fonts/Sarabun-Regular-normal.js"; 
 
-pdfMake.vfs = vfs;
+pdfMake.vfs = {
+  ...pdfFonts.pdfMake.vfs,
+  ...pdfMake.vfs
+};
+
 pdfMake.fonts = {
   THSarabunNew: {
-    normal: "THSarabunNew.ttf",
-    bold: "THSarabunNew-Bold.ttf",
-    italics: "THSarabunNew-Italic.ttf",
-    bolditalics: "THSarabunNew-BoldItalic.ttf",
+    normal: "Sarabun-Regular-normal.ttf",
   }
 };

@@ -7,7 +7,7 @@
         <h2 class="text-2xl font-bold text-green-600">คุณได้กรอกข้อมูลแล้ว</h2>
         <p class="text-gray-600 mt-4">ไม่สามารถบันทึกข้อมูลซ้ำได้</p>
       </div>
-      <div class="max-h-[85vh] overflow-y-auto pr-6 scroll-style pb-6">
+      <div class="max-h-[85vh] overflow-y-auto pr-6 scroll-style pb-6" v-else>
         <h1
           class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-red-700 via-red-800 to-red-900 bg-clip-text text-transparent drop-shadow">
           แบบรายงานผลการปฏิบัติงานระบบทวิภาคี

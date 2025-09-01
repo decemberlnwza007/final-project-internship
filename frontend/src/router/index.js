@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+const InternshipReportPDF = () => import("../components/PDF/InternshipReportPDF.vue");
+
 const routes = [
     {
         path: '/',
@@ -52,9 +54,9 @@ const routes = [
         component: () => import('../views/Admin/StudentInfoView.vue')
     },
     {
-        path: '/pdf',
-        name: 'pdf',
-        component: () => import('../components/PDF/InternshipReportPDF.vue')
+        path: "/internship-report",
+        name: "InternshipReport",
+        component: InternshipReportPDF
     },
     {
         path: '/schedule',
@@ -104,7 +106,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(''),
+    history: createWebHistory(),
     routes
 });
 

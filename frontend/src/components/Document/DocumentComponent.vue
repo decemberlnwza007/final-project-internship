@@ -11,7 +11,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-1 gap-8 mb-12">
                     <div>
                         <label class="block text-lg font-semibold text-gray-800 mb-2">รหัสนักศึกษา</label>
-                        <input v-model="studentId" type="text" placeholder="กรอกรหัสนักศึกษา" class="input-style" />
+                        <input v-model="student_code" type="text" placeholder="กรอกรหัสนักศึกษา" class="input-style" />
                     </div>
                 </div>
 
@@ -575,6 +575,7 @@
 import { ref, onMounted, watch, reactive, computed } from 'vue';
 import { PlusIcon, TrashIcon, ArrowUp, ArrowDown, Copy } from 'lucide-vue-next';
 
+const student_code = ref("");
 const studentId = ref("");
 const firstname = ref("");
 const lastname = ref("");
@@ -774,6 +775,7 @@ const submitStudent = async () => {
 onMounted(() => {
     firstname.value = localStorage.getItem('firstname') || '';
     lastname.value = localStorage.getItem('lastname') || '';
+    student_code.value = localStorage.getItem('studentId') || '';
 })
 
 </script>
